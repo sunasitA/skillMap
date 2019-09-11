@@ -7,9 +7,9 @@
 <script>
 //子组件用props接收父组件传递的参数
 export default {
-  props: ['content', 'index'],
+  props:  ['content', 'index'],
   methods: {
-      handleClick: function() {
+      handleClick: function(){
           this.$emit('delete', this.index);
       }
   }
