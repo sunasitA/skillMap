@@ -30,7 +30,7 @@
 </template>
 <script>
 export default {
-    name: 'userLogin',
+    name: 'userRegister1',
     data: function(){
         return {
             ruleForm: {

@@ -1,4 +1,6 @@
 <template>
+<div>
+  <el-divider></el-divider>
   <el-table
     ref="multipleTable"
     :data="tableData"
@@ -23,8 +25,8 @@
         <span v-if="!scope.row.dateEditable">{{ scope.row.date }}</span>
         <el-input placeholder="请输入内容" v-model="scope.row.date" v-if="scope.row.dateEditable" @blur="blurFn"></el-input>
       </template>
-      
     </el-table-column>
+
     <el-table-column
       label="名称"
       width="200"
@@ -44,6 +46,7 @@
       </template>
     </el-table-column>
   </el-table>
+</div>
 </template>
 
 <script>

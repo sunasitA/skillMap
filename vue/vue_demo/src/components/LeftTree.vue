@@ -1,42 +1,92 @@
 <template>
-  <div class='left' :style="{ backgroundColor: colorVal, color: fontColor}">
-    <slot></slot>
-    <button @click="cgColor">改变背景</button>
-    <div>{{leftData}}</div>
-  </div>
+  <el-menu
+      default-active="2"
+      class="el-menu-vertical-demo"
+      router>
+      <el-menu-item v-for="item in naviWithNoChildren" :index="item.path" :key="item.path">
+        <i :class="item.icon"></i>
+        <span slot="title">{{item.label}}</span>
+      </el-menu-item>
+
+       <el-submenu :index="item.path" v-for="(item, index) in naviWithChildren" :key="index">
+        <template slot="title">
+          <i :class="item.icon"></i>
+          <span>{{item.label}}</span>
+        </template>
+        <el-menu-item-group>
+          <el-menu-item v-for="childItem in item.children" :index="childItem.path" :key="childItem.path">
+            <i :class="childItem.icon"></i>
+            <span>{{childItem.label}}</span>
+          </el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+    </el-menu>
 </template>
 
 <script>
 import {isPrimitive} from '../util.js'
-// import isPrimitive from '../util.js' 方法的引入没有加{},报错Object(...) is not a function  at VueComponent.created
 export default {
   name: 'LeftTree',
-  props: ['bcolor', 'value'],
-  data: function(){
+  data() {
     return {
-      colorVal: this.bcolor,
-      fontColor: this.value,
-      leftData: '我是left中的data值'
-    }
+       navi: [
+          {
+            path: '/',
+            label: '首页',
+            icon: 'el-icon-s-home'
+          },
+          {
+            path: '/',
+            label: '用户管理',
+            icon: 'el-icon-user-solid',
+            children: [
+              {
+                path: '/user/userList',
+                label: '用户列表',
+                icon: 'el-icon-user'
+              },{
+                path: '/user/radioTable',
+                label: '单选列表',
+                icon: 'el-icon-user'
+              },{
+                path: '/user/register1',
+                label: '用户创建1',
+                icon: 'el-icon-setting'
+              },{
+                path: '/user/register2',
+                label: '用户创建2',
+                icon: 'el-icon-plus'
+              }
+            ]
+          },
+          {
+            path: '/',
+            label: '例子',
+            icon: 'el-icon-user-solid',
+            children: [
+              {
+                path: '/demos/index',
+                label: '组件',
+                icon: 'el-icon-user'
+              }
+            ]
+          } 
+        ]
+      }
   },
-  methods: {
-    cgColor: function(){
-      this.colorVal = (this.colorVal === 'lightgrey') ? '#0787aa' : 'lightgrey';
-      this.fontColor = (this.colorVal === 'lightgrey') ? 'black' : 'white';
-      this.$emit('passColor2Parent', this.colorVal, this.fontColor);
-      this.$emit('passLeftData', this.leftData);
+  computed: {
+    naviWithNoChildren() {
+      return this.navi.filter(item => !item.hasOwnProperty("children"));
+    },
+    naviWithChildren() {
+      return this.navi.filter(item => item.hasOwnProperty("children"));
     }
-  },
-  created (){
-      // alert( isPrimitive(11) );
   }
 }
 </script>
 
 <style scoped>
-  .left{
-    flex: 1;
-    border: 1px solid gray;
-    color: white;
-  }
+.el-menu {
+  border: 1px solid gray;
+}
 </style>

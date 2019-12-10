@@ -1,7 +1,11 @@
 <template>
-  <div class='right'>
-    <router-link to="/home">首页</router-link>
-    <router-link to="/user">用户页面</router-link>
+  <div class="right">
+    <div style="margin-top:20px;">
+      <router-link to="/home">首页</router-link>
+      <el-divider direction="vertical"></el-divider>
+      <router-link to="/user/userList">用户管理</router-link>
+    </div>
+    <el-divider></el-divider>
     <div>
       <router-view></router-view>
       <div>{{leftDataFromParent}}</div>
@@ -23,5 +27,6 @@ export default {
     flex: 3;
     border: 1px solid gray;
     margin-left: 5px;
+    text-align: center;
   }
 </style>

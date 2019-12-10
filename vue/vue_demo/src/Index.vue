@@ -6,7 +6,6 @@
       v-on:passColor2Parent='colorChanged'
       v-on:passLeftData='getLeftData'
     >
-      这是左侧导航
     </left-tree>
     <right-main
       :leftDataFromParent = 'ld'
